@@ -24,9 +24,9 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "start": "remotion studio",
-    "dev": "remotion studio",
-    "build": "remotion render VoiceStudioPromo out/video.mp4",
+    "start": "node init && remotion studio",
+    "dev": "node init && remotion studio",
+    "build": "node init && remotion render VoiceStudioPromo out/video.mp4",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },

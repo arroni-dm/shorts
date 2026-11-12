@@ -1,7 +1,6 @@
 node_modules
 dist
 .DS_Store
-.env
 
 # Ignore the output video from Git but not videos you import into src/.
 out
@@ -9,3 +8,4 @@ out
 *.mp4
 
 *.mp4
+config.bat
