@@ -1,0 +1,179 @@
+{
+  "version": 2,
+  "skills": {
+    "broll": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/broll/SKILL.md",
+      "computedHash": "c240ec4b555b5ba5a4029dfd6d256c57a963fb6fa96902c49b3e748da7c45d8e"
+    },
+    "captions": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/captions/SKILL.md",
+      "computedHash": "f913f8678b281f1954c0916d1c65aa77bdb9e4e97278130f56246bb5ef86e634"
+    },
+    "edit-video": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/edit-video/SKILL.md",
+      "computedHash": "0ecf57ed8138d8d111727e26e1f7b80deb811ef17fc3ba31b588b60a525e692f"
+    },
+    "figma-roundtrip": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/figma-roundtrip/SKILL.md",
+      "computedHash": "9a5f11608741eb27f858f06debac337d1a931ad842d5c07561be22375b6fa830"
+    },
+    "motion-overlays": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-overlays/SKILL.md",
+      "computedHash": "cdc7c5cb5a0d1de9a05190cbdcac1970890218efd7d645515e09bfe22acb61bc"
+    },
+    "music-and-sound": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/music-and-sound/SKILL.md",
+      "computedHash": "ab0a67a3456a7c5be719a8d3a737c44dc4278b5d0402230e0c28320a010cd0e8"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-best-practices/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-captions": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-captions/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-create": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-create/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-docs": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-docs/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-interactivity": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-interactivity/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-license": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-license/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-maps": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-maps/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-markup": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-markup/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-multimedia": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-multimedia/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-render": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-render/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-saas": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-saas/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-studio": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-studio/SKILL.md",
+      "computedHash": ""
+    },
+    "remotion-upgrade": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-upgrade/SKILL.md",
+      "computedHash": ""
+    },
+    "resolve-scripting": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/resolve-scripting/SKILL.md",
+      "computedHash": "230365681124ce160896f7c40220bee7e95fb1ce4a8fd1a47a8a27ac880b69bd"
+    },
+    "rough-cut": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/rough-cut/SKILL.md",
+      "computedHash": "7408e6a777f2128af3e4a5f2521f0055eb81c4641257728c5aec06e72cd225fe"
+    },
+    "speech": {
+      "source": "openai/skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/speech/SKILL.md",
+      "computedHash": "350ecd500235f3dc76abf03605cc4aff933661d9cb323fc460d9e24f7bee27b4"
+    },
+    "speech-to-text": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "skillPath": "speech-to-text/SKILL.md",
+      "computedHash": "4a4d4f26e29b5a6809148ed42d07abcfa6f76b767aded6bfe3ffb9dcd250b561"
+    },
+    "video-editing": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "skillPath": "video-editing/SKILL.md",
+      "computedHash": "0c183ea35078add8b9d4388d185694431acb883185741aea14ea644e53436971"
+    },
+    "video-editor-setup": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/video-editor-setup/SKILL.md",
+      "computedHash": "ab6abcc43733517bb3843bcad8504104c7e643c2e3346b332df294a993c39e21"
+    },
+    "vlog-pacing": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/vlog-pacing/SKILL.md",
+      "computedHash": "0fea683a91f5a5db7849f9f8624e82bdd23ddc8d201831d35c0d2a242c76c1d8"
+    },
+    "voice-and-audio": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/voice-and-audio/SKILL.md",
+      "computedHash": "3369eb8bec4d70501df43c6a3e0214ba52770bf43a4f4351452766b13e4df824"
+    },
+    "voice-cloning-studio": {
+      "source": "beatra-ai/ai-voice-cloning-skill",
+      "sourceType": "github",
+      "skillPath": "skills/voice-cloning-studio/SKILL.md",
+      "computedHash": "05a7c66d7ea20c7f5e63986854b1a085b1c5963e9fb9c4bf7243d7501a02906a"
+    },
+    "youtube-export": {
+      "source": "appariciojunior/video-editor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/youtube-export/SKILL.md",
+      "computedHash": "66abb36cc7c21641a3909ab64e422c76b3ff9d2dec11ea0bdb6a8c62123b2365"
+    }
+  }
+}

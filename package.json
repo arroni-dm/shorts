@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.543",
+    "@remotion/google-fonts": "^4.0.543",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "remotion": "4.0.543"
@@ -23,8 +24,9 @@
     "typescript": "5.9.3"
   },
   "scripts": {
+    "start": "remotion studio",
     "dev": "remotion studio",
-    "build": "remotion bundle",
+    "build": "remotion render VoiceStudioPromo out/video.mp4",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },
