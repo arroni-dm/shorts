@@ -1,0 +1,4 @@
+interface:
+  display_name: "动画连载编剧"
+  short_description: "按已确认动画手册完成动画连载编剧，保留角色一致性与可追溯的实际交付结果"
+  default_prompt: "使用 $story-writer 完成当前项目的动画连载编剧，复用已确认资产并检查交付结果。"

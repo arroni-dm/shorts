@@ -6,6 +6,7 @@ import { CustomVoiceShort } from "./CustomVoiceShort";
 import { WW2Documentary } from "./WW2Documentary";
 import { NVIDIADocumentary } from "./nvidiashort";
 import { VIDEO_CONFIG } from "./config";
+import { BookWisdomExplainer } from "./BookWisdomExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -66,6 +67,14 @@ export const RemotionRoot: React.FC = () => {
           hasMusic: true,
         }}
       />
+      <Composition
+  id="BookWisdomExplainer"
+  component={BookWisdomExplainer}
+  durationInFrames={960}
+  fps={30}
+  width={1920}
+  height={1080}
+/>
     </>
   );
 };

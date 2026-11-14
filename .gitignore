@@ -9,3 +9,7 @@ out
 
 *.mp4
 config.bat
+
+# SkillDB
+.skilldb/
+.skilldbrc

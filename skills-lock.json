@@ -7,6 +7,12 @@
       "skillPath": "skills/animated-chart/SKILL.md",
       "computedHash": "bf7f8644e66c3f9101d582642fb21b4c409011144741784323e7fb946c25a077"
     },
+    "animation-prompt": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "animation-prompt/SKILL.md",
+      "computedHash": "8ea893b76e4706377b7e507ec621ce3591cc2d6de774cc1dd28455ada8d7c5d1"
+    },
     "apple-launch-film": {
       "source": "charlie947/motion-graphics-skills",
       "sourceType": "github",
@@ -31,6 +37,12 @@
       "skillPath": "skills/captions/SKILL.md",
       "computedHash": "f913f8678b281f1954c0916d1c65aa77bdb9e4e97278130f56246bb5ef86e634"
     },
+    "character-bible": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "character-bible/SKILL.md",
+      "computedHash": "33e3e53193de9d8afbae33b61586198b6648b078e7978a45c9ac91517fe17797"
+    },
     "edit-video": {
       "source": "appariciojunior/video-editor-skills",
       "sourceType": "github",
@@ -42,6 +54,12 @@
       "sourceType": "github",
       "skillPath": "skills/figma-roundtrip/SKILL.md",
       "computedHash": "9a5f11608741eb27f858f06debac337d1a931ad842d5c07561be22375b6fa830"
+    },
+    "guagua-animation-pipeline": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "guagua-animation-pipeline/SKILL.md",
+      "computedHash": "ce5459cba9ac20e0d239e85e5ba2ef4b099034ba5156c71b6423f3f4227f8288"
     },
     "launch-video": {
       "source": "charlie947/motion-graphics-skills",
@@ -91,6 +109,12 @@
       "skillPath": "skills/motion-prompt-writer/SKILL.md",
       "computedHash": "a984c4625eea48c3b3ec779b8418f3b1f72b60b912474c5e6b93948d6217b306"
     },
+    "motion-video-director": {
+      "source": "mattypark/Motion-graphics-skill",
+      "sourceType": "github",
+      "skillPath": "skills/motion-video-director/SKILL.md",
+      "computedHash": "c02052990655c7ac4a9ef4775f831c2b294967fce7c3eccf833e768b24276f00"
+    },
     "music-and-sound": {
       "source": "appariciojunior/video-editor-skills",
       "sourceType": "github",
@@ -102,6 +126,12 @@
       "sourceType": "github",
       "skillPath": "skills/newsletter-promo/SKILL.md",
       "computedHash": "ab4f48303759b75528b0fbd09ba021bc01843b00561b1d5a75d2d69f6a0e0e19"
+    },
+    "ops-compiler": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "ops-compiler/SKILL.md",
+      "computedHash": "a4de5c4b538beaa6ed7d19e92e0c9489f8b9d5f17e401774fef788c8d5f3d882"
     },
     "reel-export": {
       "source": "charlie947/motion-graphics-skills",
@@ -205,6 +235,18 @@
       "skillPath": "skills/rough-cut/SKILL.md",
       "computedHash": "7408e6a777f2128af3e4a5f2521f0055eb81c4641257728c5aec06e72cd225fe"
     },
+    "scene-generator": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "scene-generator/SKILL.md",
+      "computedHash": "5827f2d87c64da5dc18557dbaea783ffe5370592c90df37c96329fe39d475555"
+    },
+    "sound-designer": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "sound-designer/SKILL.md",
+      "computedHash": "458020c4e42d74229a5d89de64f49fa66c9d705bf0c0243c8cf7b520181f28ae"
+    },
     "speech": {
       "source": "openai/skills",
       "sourceType": "github",
@@ -217,11 +259,23 @@
       "skillPath": "speech-to-text/SKILL.md",
       "computedHash": "4a4d4f26e29b5a6809148ed42d07abcfa6f76b767aded6bfe3ffb9dcd250b561"
     },
+    "story-writer": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "story-writer/SKILL.md",
+      "computedHash": "bfeb85ceb3ac80a8bf057d5781b7f1e4283fc9da095cb8595dce7cdbfc5965fa"
+    },
     "title-sequence-3d": {
       "source": "charlie947/motion-graphics-skills",
       "sourceType": "github",
       "skillPath": "skills/title-sequence-3d/SKILL.md",
       "computedHash": "c22dae16fed38d03886e1e060f26fa5e70b0b33d318477a9394f9a63d090ec2a"
+    },
+    "ultimate-ai-media-generator-skill": {
+      "source": "ZeroLu/Ultimate-AI-Media-Generator-Skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "7b94fe300fe1ab24241cc71c08da375d655083415480fa8a1c2d75d83ab9e867"
     },
     "video-editing": {
       "source": "awesome-genmedia/skills",
@@ -229,11 +283,29 @@
       "skillPath": "video-editing/SKILL.md",
       "computedHash": "0c183ea35078add8b9d4388d185694431acb883185741aea14ea644e53436971"
     },
+    "video-editor": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "video-editor/SKILL.md",
+      "computedHash": "e3d6741778be94c31dd3987c80224b0fb665ea10c5ec8df6782d70320244412e"
+    },
     "video-editor-setup": {
       "source": "appariciojunior/video-editor-skills",
       "sourceType": "github",
       "skillPath": "skills/video-editor-setup/SKILL.md",
       "computedHash": "ab6abcc43733517bb3843bcad8504104c7e643c2e3346b332df294a993c39e21"
+    },
+    "video-use": {
+      "source": "browser-use/video-use",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "51abac63c2a9189dc482cd9ae2674dd028e7e7a85e2439fc7e524cf553f867fc"
+    },
+    "visual-comedy-director": {
+      "source": "weibo-job/guagua-animation-skills",
+      "sourceType": "github",
+      "skillPath": "visual-comedy-director/SKILL.md",
+      "computedHash": "2f82451e41a9552618409591eb86191c5bacb21d7501ee70011f4e96d3ee423f"
     },
     "vlog-pacing": {
       "source": "appariciojunior/video-editor-skills",
