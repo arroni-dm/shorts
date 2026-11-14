@@ -16,26 +16,29 @@ const { fontFamily } = loadFont("normal", {
   subsets: ["bengali"],
 });
 
-// Change to "book-wisdom-voice.mp3" if your audio file is MP3
 const VOICE_FILE = "boi-pora.wav";
 
-interface SceneBlock {
+interface VerticalScene {
   start: number;
   end: number;
   tag: string;
-  title: string;
-  subtitle: string;
+  headlineTop: string;
+  highlightWord: string;
+  headlineBottom: string;
+  caption: string;
   accent: string;
   mode: "split" | "compare" | "decline" | "expansion";
 }
 
-const SCENES: SceneBlock[] = [
+const SCENES: VerticalScene[] = [
   {
     start: 0,
     end: 7.2,
     tag: "INFORMATION VS WISDOM",
-    title: "ইন্টারনেট দেয় তথ্য,\nকিন্তু বই দেয় প্রজ্ঞা!",
-    subtitle: "তথ্য জানা আর গভীরভাবে উপলব্ধি করার মধ্যে রয়েছে বিশাল ব্যবধান",
+    headlineTop: "ইন্টারনেট দেয় তথ্য,",
+    highlightWord: "কিন্তু বই দেয় প্রজ্ঞা!",
+    headlineBottom: "",
+    caption: "তথ্য জানা আর গভীরভাবে উপলব্ধি করার মধ্যে রয়েছে বিশাল পার্থক্য",
     accent: "#F59E0B",
     mode: "split",
   },
@@ -43,8 +46,10 @@ const SCENES: SceneBlock[] = [
     start: 7.2,
     end: 16.5,
     tag: "DEPTH COMPARISON",
-    title: "৩ মিনিটের সার্চ বনাম\n৩০০ পৃষ্ঠার গভীর পাঠ",
-    subtitle: "Google-এ তাৎক্ষণিক উত্তর মেলে, কিন্তু বই তৈরি করে গভীর জ্ঞান",
+    headlineTop: "৩ মিনিটের সার্চ বনাম",
+    highlightWord: "৩০০ পৃষ্ঠার গভীর পাঠ",
+    headlineBottom: "",
+    caption: "Google-এ তাৎক্ষণিক উত্তর মেলে, কিন্তু বই তৈরি করে গভীর জ্ঞান",
     accent: "#38BDF8",
     mode: "compare",
   },
@@ -52,90 +57,94 @@ const SCENES: SceneBlock[] = [
     start: 16.5,
     end: 23.0,
     tag: "THE SKIMMING ERA",
-    title: "তথ্য সংগ্রহের যুগে\nকমছে গভীরে যাওয়ার অভ্যাস",
-    subtitle: "দ্রুত স্ক্রলিং ও স্কিমিং আমাদের গভীর মনোযোগকে দুর্বল করে দিচ্ছে",
+    headlineTop: "তথ্য সংগ্রহের যুগে",
+    highlightWord: "কমছে গভীরে যাওয়ার অভ্যাস",
+    headlineBottom: "",
+    caption: "দ্রুত স্ক্রলিং ও স্কিমিং আমাদের গভীর মনোযোগকে দুর্বল করে দিচ্ছে",
     accent: "#EF4444",
     mode: "decline",
   },
   {
     start: 23.0,
-    end: 32.0,
+    end: 30.0,
     tag: "COGNITIVE GROWTH",
-    title: "রিলস বা শর্টসের চেয়ে\nবই পড়া বহু গুণে এগিয়ে",
-    subtitle: "মনস্তাত্ত্বিক বিকাশ ও চিন্তার পরিধি বাড়াতে বই পড়ার বিকল্প নেই",
+    headlineTop: "রিলস বা শর্টসের চেয়ে",
+    highlightWord: "বই পড়া বহু গুণে এগিয়ে",
+    headlineBottom: "",
+    caption: "মনস্তাত্ত্বিক বিকাশ ও চিন্তার পরিধি বাড়াতে বই পড়ার বিকল্প নেই",
     accent: "#10B981",
     mode: "expansion",
   },
 ];
 
-const EditorialVisual: React.FC<{
-  mode: SceneBlock["mode"];
+const VerticalMotionCard: React.FC<{
+  mode: VerticalScene["mode"];
   accent: string;
   localFrame: number;
   fps: number;
 }> = ({ mode, accent, localFrame, fps }) => {
-  const floatY = Math.sin(localFrame / 16) * 8;
   const pop = spring({
     frame: localFrame,
     fps,
-    config: { damping: 15, stiffness: 110 },
+    config: { damping: 14, stiffness: 120 },
   });
+  const floatY = Math.sin(localFrame / 14) * 7;
 
   if (mode === "split") {
     return (
       <div
         style={{
+          width: "100%",
           display: "flex",
-          gap: 32,
-          alignItems: "center",
+          gap: 24,
+          justifyContent: "center",
+          alignItems: "stretch",
           transform: `scale(${pop}) translateY(${floatY}px)`,
         }}
       >
-        {/* Left Card: Internet */}
+        {/* Internet Box */}
         <div
           style={{
-            width: 340,
-            height: 410,
+            flex: 1,
+            height: 360,
             borderRadius: 28,
             backgroundColor: "rgba(56, 189, 248, 0.08)",
             border: "2px solid rgba(56, 189, 248, 0.45)",
-            padding: 36,
+            padding: 32,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
           }}
         >
-          <div style={{ fontSize: 22, letterSpacing: 3, color: "#38BDF8", fontWeight: 700 }}>
+          <div style={{ fontSize: 22, letterSpacing: 2.5, color: "#38BDF8", fontWeight: 700 }}>
             INTERNET
           </div>
           <div style={{ fontSize: 64, fontWeight: 700, color: "#FFFFFF" }}>তথ্য</div>
-          <div style={{ fontSize: 24, color: "#94A3B8", lineHeight: 1.5 }}>
+          <div style={{ fontSize: 24, color: "#94A3B8", lineHeight: 1.4 }}>
             দ্রুত ডেটা ও ইনফরমেশন
           </div>
         </div>
 
-        <div style={{ fontSize: 40, fontWeight: 700, color: "#64748B" }}>VS</div>
-
-        {/* Right Card: Book */}
+        {/* Book Box */}
         <div
           style={{
-            width: 340,
-            height: 410,
+            flex: 1,
+            height: 360,
             borderRadius: 28,
             backgroundColor: "rgba(245, 158, 11, 0.14)",
             border: `3px solid ${accent}`,
-            boxShadow: `0 25px 70px ${accent}33`,
-            padding: 36,
+            boxShadow: `0 24px 60px ${accent}33`,
+            padding: 32,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
           }}
         >
-          <div style={{ fontSize: 22, letterSpacing: 3, color: accent, fontWeight: 700 }}>
+          <div style={{ fontSize: 22, letterSpacing: 2.5, color: accent, fontWeight: 700 }}>
             BOOKS
           </div>
           <div style={{ fontSize: 68, fontWeight: 700, color: accent }}>প্রজ্ঞা</div>
-          <div style={{ fontSize: 24, color: "#FDE68A", lineHeight: 1.5 }}>
+          <div style={{ fontSize: 24, color: "#FDE68A", lineHeight: 1.4 }}>
             গভীর উপলব্ধি ও প্রজ্ঞা
           </div>
         </div>
@@ -144,21 +153,20 @@ const EditorialVisual: React.FC<{
   }
 
   if (mode === "compare") {
-    const bar1 = interpolate(localFrame, [0, 25], [0, 120], { extrapolateRight: "clamp" });
-    const bar2 = interpolate(localFrame, [5, 45], [0, 560], { extrapolateRight: "clamp" });
+    const bar1 = interpolate(localFrame, [0, 22], [0, 18], { extrapolateRight: "clamp" });
+    const bar2 = interpolate(localFrame, [6, 42], [0, 100], { extrapolateRight: "clamp" });
     return (
       <div
         style={{
-          width: 740,
-          height: 440,
+          width: "100%",
           borderRadius: 32,
           backgroundColor: "rgba(255,255,255,0.04)",
           border: `2px solid ${accent}55`,
-          padding: "46px 52px",
+          padding: "40px 42px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          gap: 44,
+          gap: 38,
+          transform: `scale(${pop})`,
         }}
       >
         <div>
@@ -166,8 +174,8 @@ const EditorialVisual: React.FC<{
             <span style={{ color: "#94A3B8" }}>Google সার্চ (তাৎক্ষণিক)</span>
             <span style={{ color: "#94A3B8", fontWeight: 700 }}>৩ মিনিট</span>
           </div>
-          <div style={{ height: 26, backgroundColor: "#1E293B", borderRadius: 99 }}>
-            <div style={{ width: bar1, height: "100%", backgroundColor: "#64748B", borderRadius: 99 }} />
+          <div style={{ height: 26, backgroundColor: "#1E293B", borderRadius: 99, overflow: "hidden" }}>
+            <div style={{ width: `${bar1}%`, height: "100%", backgroundColor: "#64748B", borderRadius: 99 }} />
           </div>
         </div>
 
@@ -176,10 +184,10 @@ const EditorialVisual: React.FC<{
             <span style={{ color: "#FFFFFF", fontWeight: 700 }}>বই পাঠ (গভীর জ্ঞান)</span>
             <span style={{ color: accent, fontWeight: 700 }}>৩০০ পৃষ্ঠা</span>
           </div>
-          <div style={{ height: 34, backgroundColor: "#1E293B", borderRadius: 99 }}>
+          <div style={{ height: 34, backgroundColor: "#1E293B", borderRadius: 99, overflow: "hidden" }}>
             <div
               style={{
-                width: bar2,
+                width: `${bar2}%`,
                 height: "100%",
                 background: `linear-gradient(90deg, #0284C7, ${accent})`,
                 borderRadius: 99,
@@ -193,75 +201,72 @@ const EditorialVisual: React.FC<{
   }
 
   if (mode === "decline") {
-    const dashOffset = interpolate(localFrame, [0, 45], [700, 0], { extrapolateRight: "clamp" });
+    const dashOffset = interpolate(localFrame, [0, 42], [780, 0], { extrapolateRight: "clamp" });
     return (
       <div
         style={{
-          width: 740,
-          height: 440,
+          width: "100%",
           borderRadius: 32,
-          backgroundColor: "rgba(239, 68, 68, 0.06)",
+          backgroundColor: "rgba(239, 68, 68, 0.07)",
           border: `2px solid ${accent}66`,
-          padding: 44,
+          padding: "36px 40px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          gap: 20,
+          transform: `scale(${pop})`,
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, fontWeight: 700 }}>
           <span style={{ color: "#FCA5A5" }}>SKIMMING ERA • গভীর মনোযোগ</span>
           <span style={{ color: accent }}>↘ কমছে</span>
         </div>
-        <svg width="650" height="230" viewBox="0 0 650 230">
+        <svg width="100%" height="230" viewBox="0 0 760 230">
           <path
-            d="M 20 35 Q 220 45, 360 125 T 620 205"
+            d="M 20 35 Q 250 45, 420 130 T 730 205"
             fill="none"
             stroke={accent}
-            strokeWidth="10"
+            strokeWidth="11"
             strokeLinecap="round"
-            strokeDasharray="700"
+            strokeDasharray="780"
             strokeDashoffset={dashOffset}
           />
-          <circle cx="20" cy="35" r="11" fill="#FFFFFF" />
-          <circle cx="620" cy="205" r="14" fill={accent} />
+          <circle cx="20" cy="35" r="12" fill="#FFFFFF" />
+          <circle cx="730" cy="205" r="15" fill={accent} />
         </svg>
-        <div style={{ fontSize: 26, color: "#FECACA", textAlign: "center" }}>
-          তথ্যের ভিড়ে হারিয়ে যাচ্ছে গভীর চিন্তাশক্তি
-        </div>
       </div>
     );
   }
 
   // Expansion Mode
-  const ringScale = interpolate(localFrame, [0, 35], [0.4, 1], { extrapolateRight: "clamp" });
+  const ringScale = interpolate(localFrame, [0, 32], [0.45, 1], { extrapolateRight: "clamp" });
   return (
     <div
       style={{
-        width: 740,
-        height: 440,
+        width: "100%",
+        height: 410,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
+        transform: `scale(${pop})`,
       }}
     >
       <div
         style={{
           position: "absolute",
-          width: 420,
-          height: 420,
+          width: 400,
+          height: 400,
           borderRadius: "50%",
-          border: `2px dashed ${accent}88`,
-          transform: `scale(${ringScale}) rotate(${localFrame * 0.6}deg)`,
+          border: `3px dashed ${accent}88`,
+          transform: `scale(${ringScale}) rotate(${localFrame * 0.7}deg)`,
         }}
       />
       <div
         style={{
-          position: "absolute",
-          width: 310,
-          height: 310,
+          width: 295,
+          height: 295,
           borderRadius: "50%",
-          backgroundColor: `${accent}18`,
+          backgroundColor: `${accent}1A`,
           border: `3px solid ${accent}`,
           boxShadow: `0 0 80px ${accent}55`,
           display: "flex",
@@ -272,8 +277,8 @@ const EditorialVisual: React.FC<{
           padding: 24,
         }}
       >
-        <div style={{ fontSize: 44, fontWeight: 700, color: accent }}>বই পাঠ</div>
-        <div style={{ fontSize: 24, color: "#FFFFFF", marginTop: 8 }}>
+        <div style={{ fontSize: 48, fontWeight: 700, color: accent }}>বই পাঠ</div>
+        <div style={{ fontSize: 24, color: "#FFFFFF", marginTop: 8, lineHeight: 1.4 }}>
           চিন্তার পরিধি ও মনস্তাত্ত্বিক বিকাশ
         </div>
       </div>
@@ -293,9 +298,10 @@ export const BookWisdomExplainer: React.FC = () => {
   const scene = SCENES[idx] ?? SCENES[SCENES.length - 1];
   const localFrame = Math.max(0, frame - Math.round(scene.start * fps));
 
-  const fade = interpolate(localFrame, [0, 12], [0, 1], { extrapolateRight: "clamp" });
-  const slideY = interpolate(localFrame, [0, 14], [36, 0], { extrapolateRight: "clamp" });
-  const totalProgress = interpolate(frame, [0, durationInFrames], [0, 100], {
+  const fade = interpolate(localFrame, [0, 10], [0, 1], { extrapolateRight: "clamp" });
+  const slideY = interpolate(localFrame, [0, 12], [32, 0], { extrapolateRight: "clamp" });
+  const markerWidth = interpolate(localFrame, [4, 20], [0, 100], { extrapolateRight: "clamp" });
+  const progressPct = interpolate(frame, [0, durationInFrames], [0, 100], {
     extrapolateRight: "clamp",
   });
 
@@ -311,7 +317,7 @@ export const BookWisdomExplainer: React.FC = () => {
       {/* Main Voiceover */}
       <Audio src={staticFile(VOICE_FILE)} volume={1} />
 
-      {/* Subtle Whoosh Transition SFX */}
+      {/* Whoosh Transition SFX */}
       {SCENES.map((s, i) =>
         i === 0 ? null : (
           <Sequence key={i} from={Math.round(s.start * fps)} durationInFrames={15}>
@@ -324,150 +330,136 @@ export const BookWisdomExplainer: React.FC = () => {
       <AbsoluteFill
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+            "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "54px 54px",
         }}
       />
       <AbsoluteFill
         style={{
-          background: `radial-gradient(circle at 72% 48%, ${scene.accent}1F 0%, transparent 50%)`,
+          background: `radial-gradient(circle at 50% 62%, ${scene.accent}24 0%, transparent 55%)`,
         }}
       />
 
-      {/* Top Header Bar */}
+      {/* Safe-Zone Aware Vertical Container (Top 130px, Bottom 260px clear for Shorts UI) */}
       <div
         style={{
           position: "absolute",
-          top: 56,
-          left: 90,
-          right: 90,
+          top: 130,
+          bottom: 260,
+          left: 72,
+          right: 72,
           display: "flex",
+          flexDirection: "column",
           justifyContent: "space-between",
-          alignItems: "center",
         }}
       >
-        <div
-          style={{
-            padding: "10px 26px",
-            borderRadius: 8,
-            border: `1.5px solid ${scene.accent}`,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            color: scene.accent,
-            fontSize: 22,
-            fontWeight: 700,
-            letterSpacing: 2,
-          }}
-        >
-          {scene.tag}
-        </div>
-        <div style={{ fontSize: 22, color: "#94A3B8", letterSpacing: 2 }}>
-          DEEP READING SERIES
-        </div>
-      </div>
+        {/* Top Tag Pill & Progress */}
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 22,
+            }}
+          >
+            <div
+              style={{
+                padding: "10px 26px",
+                borderRadius: 10,
+                border: `2px solid ${scene.accent}`,
+                backgroundColor: "rgba(0,0,0,0.55)",
+                color: scene.accent,
+                fontSize: 24,
+                fontWeight: 700,
+                letterSpacing: 2,
+              }}
+            >
+              {scene.tag}
+            </div>
+            <div style={{ fontSize: 24, color: "#94A3B8", fontWeight: 700 }}>
+              {Math.round(progressPct)}%
+            </div>
+          </div>
 
-      {/* Main 16:9 Split Content Area */}
-      <div
-        style={{
-          position: "absolute",
-          top: 170,
-          left: 90,
-          right: 90,
-          bottom: 140,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 60,
-        }}
-      >
-        {/* Left Editorial Typography */}
+          <div style={{ height: 8, backgroundColor: "#1E293B", borderRadius: 99, overflow: "hidden" }}>
+            <div
+              style={{
+                width: `${progressPct}%`,
+                height: "100%",
+                backgroundColor: scene.accent,
+                borderRadius: 99,
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Center-Top Kinetic Typography + Vox Highlighter */}
         <div
           style={{
-            flex: 1,
             opacity: fade,
             transform: `translateY(${slideY}px)`,
           }}
         >
           <div
             style={{
-              fontSize: 66,
+              fontSize: 72,
               fontWeight: 700,
               lineHeight: 1.25,
-              whiteSpace: "pre-line",
-              marginBottom: 28,
+              color: "#FFFFFF",
+              marginBottom: 14,
             }}
           >
-            {scene.title}
+            {scene.headlineTop}
           </div>
+
+          {/* Vox-Style Animated Highlighter Bar */}
+          <div style={{ position: "relative", display: "inline-block", marginBottom: 24 }}>
+            <div
+              style={{
+                position: "absolute",
+                left: -10,
+                right: -10,
+                bottom: 6,
+                height: "46%",
+                width: `${markerWidth}%`,
+                backgroundColor: `${scene.accent}44`,
+                borderRadius: 8,
+                zIndex: 0,
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                fontSize: 72,
+                fontWeight: 700,
+                lineHeight: 1.22,
+                color: scene.accent,
+                zIndex: 1,
+              }}
+            >
+              {scene.highlightWord}
+            </div>
+          </div>
+
           <div
             style={{
-              width: 110,
-              height: 6,
-              borderRadius: 99,
-              backgroundColor: scene.accent,
-              marginBottom: 28,
-            }}
-          />
-          <div
-            style={{
-              fontSize: 32,
-              lineHeight: 1.55,
+              fontSize: 34,
+              lineHeight: 1.5,
               color: "#CBD5E1",
-              maxWidth: 740,
             }}
           >
-            {scene.subtitle}
+            {scene.caption}
           </div>
         </div>
 
-        {/* Right Infographics / Data-Viz Zone */}
-        <div
-          style={{
-            width: 760,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <EditorialVisual
-            mode={scene.mode}
-            accent={scene.accent}
-            localFrame={localFrame}
-            fps={fps}
-          />
-        </div>
-      </div>
-
-      {/* Bottom Progress Bar */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 52,
-          left: 90,
-          right: 90,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 20,
-            color: "#94A3B8",
-            marginBottom: 12,
-          }}
-        >
-          <span>INFORMATION VS WISDOM</span>
-          <span>{Math.round(totalProgress)}%</span>
-        </div>
-        <div style={{ height: 6, backgroundColor: "#1E293B", borderRadius: 99 }}>
-          <div
-            style={{
-              width: `${totalProgress}%`,
-              height: "100%",
-              backgroundColor: scene.accent,
-              borderRadius: 99,
-            }}
-          />
-        </div>
+        {/* Center-Bottom Data-Viz / Infographics Card */}
+        <VerticalMotionCard
+          mode={scene.mode}
+          accent={scene.accent}
+          localFrame={localFrame}
+          fps={fps}
+        />
       </div>
     </AbsoluteFill>
   );

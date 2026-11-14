@@ -7,6 +7,7 @@ import { WW2Documentary } from "./WW2Documentary";
 import { NVIDIADocumentary } from "./nvidiashort";
 import { VIDEO_CONFIG } from "./config";
 import { BookWisdomExplainer } from "./BookWisdomExplainer";
+import { MagneticPoleDocumentary } from "./MagneticPoleDocumentary";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -68,12 +69,20 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
       <Composition
+        id="MagneticPoleDocumentary"
+        component={MagneticPoleDocumentary}
+        durationInFrames={24485}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
   id="BookWisdomExplainer"
   component={BookWisdomExplainer}
-  durationInFrames={960}
+  durationInFrames={900}
   fps={30}
-  width={1920}
-  height={1080}
+  width={1080}
+  height={1920}
 />
     </>
   );
