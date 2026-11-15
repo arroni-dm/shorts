@@ -10,6 +10,10 @@ import { BookWisdomExplainer } from "./BookWisdomExplainer";
 import { MagneticPoleCreatorUI } from "./MagneticPoleCreatorUI";
 import { DynamicScene } from "./components/DynamicScene";
 import { MythologyStoryShort } from "./MythologyStoryShort";
+import { MagneticFieldDocumentary } from "./MagneticFieldDocumentary";
+import { MagneticHybridDocumentary } from "./MagneticHybridDocumentary";
+import { MagneticHybridDocumentary60fps } from "./MagneticHybridDocumentary60fps";
+import { IranVsUsaShort } from './IranVsUsaShort';
 
 export const RemotionRoot: React.FC = () => {
   // ১ থেকে ৫০০ পর্যন্ত ৫০০টি ইউনিক দৃশ্য জেনারেট করার অ্যারে
@@ -18,6 +22,41 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       {/* ================= আপনার আগের কম্পোজিশনগুলো ================= */}
+     <Composition
+        id="IranVsUsaShort"
+        component={IranVsUsaShort}
+        durationInFrames={3270}
+        fps={60}
+        width={1080}
+        height={1920}
+      />
+     
+     <Composition
+  id="MagneticHybridDocumentary60fps"
+  component={MagneticHybridDocumentary60fps}
+  durationInFrames={13680} // ২২৮ সেকেন্ড × ৬০ fps
+  fps={60}
+  width={1920}
+  height={1080}
+/>
+     
+     <Composition
+  id="MagneticHybridDocumentary"
+  component={MagneticHybridDocumentary}
+  durationInFrames={6840}
+  fps={30}
+  width={1920}
+  height={1080}
+/>
+      
+      <Composition
+  id="MagneticFieldDocumentary"
+  component={MagneticFieldDocumentary}
+  durationInFrames={6360}
+  fps={30}
+  width={1920}
+  height={1080}
+/>
       <Composition
         id="nvidiashort"
         component={NVIDIADocumentary}
