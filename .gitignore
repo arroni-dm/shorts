@@ -13,3 +13,11 @@ config.bat
 # SkillDB
 .skilldb/
 .skilldbrc
+
+node_modules/
+out/
+.DS_Store
+
+whisper.cpp/
+*.bin
+*.mp4
