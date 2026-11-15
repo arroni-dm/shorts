@@ -53,11 +53,46 @@ const CinematicCameraRig: React.FC<{
   );
 };
 
+// Blurred Ambient Glow Orbs (SaaS Dark Glow)
+const AmbientGlowOrbs: React.FC<{ color1?: string; color2?: string }> = ({
+  color1 = 'rgba(255, 214, 10, 0.22)',
+  color2 = 'rgba(230, 57, 70, 0.22)',
+}) => {
+  return (
+    <AbsoluteFill style={{ pointerEvents: 'none', overflow: 'hidden' }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: '-8%',
+          left: '-12%',
+          width: 620,
+          height: 620,
+          borderRadius: '50%',
+          background: `radial-gradient(circle, ${color1} 0%, transparent 70%)`,
+          filter: 'blur(65px)',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-8%',
+          right: '-12%',
+          width: 620,
+          height: 620,
+          borderRadius: '50%',
+          background: `radial-gradient(circle, ${color2} 0%, transparent 70%)`,
+          filter: 'blur(65px)',
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
 // Google Flow-Style Atmospheric Lighting, Vignette & Film Grain Overlay
 const CinematicAtmosphereOverlay: React.FC<{
   glowColor?: string;
   isLightScene?: boolean;
-}> = ({ glowColor = 'rgba(255, 214, 10, 0.16)', isLightScene = false }) => {
+}> = ({ glowColor = 'rgba(255, 214, 10, 0.14)', isLightScene = false }) => {
   const frame = useCurrentFrame();
   const seed = frame % 12;
 
@@ -95,7 +130,7 @@ const CinematicAtmosphereOverlay: React.FC<{
   );
 };
 
-// One-by-One Pop-in Caption (ভয়েসে ঠিক যখন যে ফ্রেজ বলবে, শুধু সেটিই পপ-ইন হবে)
+// One-by-One Pop-in Caption
 const SrtKaraokeCaptions: React.FC<{ darkTheme?: boolean }> = ({ darkTheme = true }) => {
   const [captions, setCaptions] = useState<Caption[]>([]);
   const [handle] = useState(() => delayRender('Loading iranvsusa.srt...'));
@@ -251,7 +286,37 @@ const CreatorHeader: React.FC<{ badgeText: string; lightBg?: boolean }> = ({
   );
 };
 
-// কাস্টম ইরান অ্যালার্ট সিন (8.0s - 9.6s) — জেনেরিক মন্দিরের বদলে হাই-টেক ক্রসহেয়ার ও মিসাইল গ্রিড
+// Bottom Multi-Color Linear Progress Bar
+const BottomProgressBar: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const pct = Math.min(100, Math.max(0, (frame / Math.max(1, durationInFrames)) * 100));
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 10,
+        backgroundColor: 'rgba(255, 255, 255, 0.14)',
+        zIndex: 70,
+      }}
+    >
+      <div
+        style={{
+          height: '100%',
+          width: `${pct}%`,
+          background: 'linear-gradient(90deg, #4285F4 0%, #34A853 45%, #FFD60A 75%, #E63946 100%)',
+          boxShadow: '0 0 14px rgba(255, 214, 10, 0.65)',
+        }}
+      />
+    </div>
+  );
+};
+
+// কাস্টম ইরান অ্যালার্ট সিন (8.0s - 9.6s)
 const IranRevealScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -262,11 +327,12 @@ const IranRevealScene: React.FC = () => {
     <CinematicCameraRig zoomFrom={1.18} zoomTo={1.0} shakeIntensity={1.4}>
       <AbsoluteFill
         style={{
-          background: 'radial-gradient(circle at 50% 45%, #3B0D11 0%, #0D0D0D 75%)',
+          background: 'radial-gradient(circle at 50% 45%, #3B0D11 0%, #0A0A0C 75%)',
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
+        <AmbientGlowOrbs color1="rgba(230, 57, 70, 0.32)" color2="rgba(255, 214, 10, 0.25)" />
         <svg width="900" height="900" viewBox="0 0 900 900" style={{ position: 'absolute', opacity: 0.45 }}>
           <g transform={`rotate(${ringRot}, 450, 450)`}>
             <circle cx="450" cy="450" r="320" fill="none" stroke="#FFD60A" strokeWidth="4" strokeDasharray="30 18" />
@@ -473,16 +539,16 @@ const StickmanStrategyScene: React.FC = () => {
   );
 };
 
-// Claude-Style 3D Perspective Data Cards (27.2s - 37.0s)
+// Claude-Style 3D Perspective Data Cards + Hex-Opacity Step Badges (27.2s - 37.0s)
 const VoxThreePillars: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
 
   const cards = [
-    { icon: '🛡️', title: 'দীর্ঘদিনের সামরিক প্রস্তুতি', sub: 'আন্ডারগ্রাউন্ড মিসাইল সিটি ও ডিফেন্স', delay: 0.1 },
-    { icon: '🛸', title: 'আধুনিক ড্রোন প্রযুক্তি', sub: 'স্বল্প খরচে হাই-ইমপ্যাক্ট স্ট্রাইক', delay: 1.8 },
-    { icon: '🌊', title: 'হরমুজ প্রণালীর নিয়ন্ত্রণ', sub: 'বৈশ্বিক তেল সরবরাহের প্রধান চাবিকাঠি', delay: 3.2 },
+    { step: '01', accent: '#4285F4', icon: '🛡️', title: 'দীর্ঘদিনের সামরিক প্রস্তুতি', sub: 'আন্ডারগ্রাউন্ড মিসাইল সিটি ও ডিফেন্স', delay: 0.1 },
+    { step: '02', accent: '#E63946', icon: '🛸', title: 'আধুনিক ড্রোন প্রযুক্তি', sub: 'স্বল্প খরচে হাই-ইমপ্যাক্ট স্ট্রাইক', delay: 1.8 },
+    { step: '03', accent: '#34A853', icon: '🌊', title: 'হরমুজ প্রণালীর নিয়ন্ত্রণ', sub: 'বৈশ্বিক তেল সরবরাহের প্রধান চাবিকাঠি', delay: 3.2 },
   ];
 
   return (
@@ -492,10 +558,10 @@ const VoxThreePillars: React.FC = () => {
           backgroundColor: '#F4EFE6',
           backgroundImage: 'radial-gradient(#C8C0B0 2.5px, transparent 2.5px)',
           backgroundSize: '36px 36px',
-          padding: '240px 65px 0',
+          padding: '235px 65px 0',
           display: 'flex',
           flexDirection: 'column',
-          gap: 32,
+          gap: 30,
           perspective: 1100,
           fontFamily,
         }}
@@ -514,19 +580,37 @@ const VoxThreePillars: React.FC = () => {
                 backgroundColor: i === 2 ? '#FFD60A' : '#FFFFFF',
                 border: '5px solid #0D0D0D',
                 borderRadius: 24,
-                padding: '32px 36px',
+                padding: '28px 34px',
                 boxShadow: '12px 12px 0px #0D0D0D',
                 transform: `translateX(${(1 - s) * 140}px) rotateY(${rotateY}deg) scale(${0.92 + 0.08 * s})`,
                 opacity: s,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 26,
+                gap: 24,
               }}
             >
-              <div style={{ fontSize: 64 }}>{card.icon}</div>
+              {/* Hex-Opacity Step Badge */}
+              <div
+                style={{
+                  fontSize: 34,
+                  fontWeight: 700,
+                  color: i === 2 ? '#0D0D0D' : card.accent,
+                  backgroundColor: i === 2 ? 'rgba(13,13,13,0.12)' : `${card.accent}20`,
+                  border: `3px solid ${i === 2 ? '#0D0D0D' : card.accent}`,
+                  padding: '16px 20px',
+                  borderRadius: 18,
+                  minWidth: 84,
+                  textAlign: 'center',
+                }}
+              >
+                {card.step}
+              </div>
+
               <div>
-                <div style={{ fontSize: 38, fontWeight: 700, color: '#0D0D0D' }}>{card.title}</div>
-                <div style={{ fontSize: 26, fontWeight: 600, color: '#333333', marginTop: 6 }}>
+                <div style={{ fontSize: 36, fontWeight: 700, color: '#0D0D0D' }}>
+                  {card.icon} {card.title}
+                </div>
+                <div style={{ fontSize: 25, fontWeight: 600, color: '#333333', marginTop: 6 }}>
                   {card.sub}
                 </div>
               </div>
@@ -557,15 +641,13 @@ const StraitOfHormuzScene: React.FC = () => {
           fontFamily,
         }}
       >
-        {/* সমুদ্রের ঢেউ ও তেলের ট্যাংকার ভেক্টর সিন */}
+        <AmbientGlowOrbs color1="rgba(0, 180, 216, 0.25)" color2="rgba(255, 214, 10, 0.2)" />
         <svg width="1080" height="900" viewBox="0 0 1080 900" style={{ position: 'absolute', bottom: 180 }}>
-          {/* ট্যাংকার জাহাজ */}
           <g transform={`translate(${shipX}, ${460 + Math.sin(t * 3) * 8})`}>
             <polygon points="0,60 280,60 245,115 25,115" fill="#E63946" stroke="#FFD60A" strokeWidth="4" />
             <rect x="40" y="25" width="45" height="35" fill="#FFFFFF" />
             <rect x="105" y="38" width="110" height="22" rx="4" fill="#FFD60A" />
           </g>
-          {/* অ্যানিমেটেড সমুদ্রের ঢেউ */}
           <path
             d={`M -100 570 Q 170 ${545 + waveShift} 440 570 T 980 570 T 1300 570 L 1300 900 L -100 900 Z`}
             fill="rgba(0, 119, 182, 0.45)"
@@ -589,7 +671,16 @@ const StraitOfHormuzScene: React.FC = () => {
             zIndex: 10,
           }}
         >
-          <div style={{ fontSize: 48, fontWeight: 700, color: '#FFD60A' }}>
+          {/* Gradient Clip Headline */}
+          <div
+            style={{
+              fontSize: 50,
+              fontWeight: 700,
+              background: 'linear-gradient(90deg, #FFD60A 0%, #FFFFFF 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
             ⚠️ হরমুজ প্রণালী সংকট
           </div>
           <div style={{ fontSize: 32, fontWeight: 600, color: '#FFFFFF', marginTop: 12 }}>
@@ -613,13 +704,14 @@ const StickmanDilemmaScene: React.FC = () => {
     <CinematicCameraRig zoomFrom={1.0} zoomTo={1.09} shakeIntensity={1.0}>
       <AbsoluteFill
         style={{
-          backgroundColor: '#0D0D0D',
+          backgroundColor: '#0A0A0C',
           padding: '230px 60px 0',
           alignItems: 'center',
           perspective: 1000,
           fontFamily,
         }}
       >
+        <AmbientGlowOrbs color1="rgba(230, 57, 70, 0.25)" color2="rgba(255, 214, 10, 0.22)" />
         <div style={{ display: 'flex', gap: 24, width: '100%' }}>
           <div
             style={{
@@ -697,7 +789,7 @@ export const IranVsUsaShort: React.FC = () => {
   const isLightScene = t >= 9.6 && t < 37.0;
 
   return (
-    <AbsoluteFill style={{ backgroundColor: '#0D0D0D', fontFamily, overflow: 'hidden' }}>
+    <AbsoluteFill style={{ backgroundColor: '#0A0A0C', fontFamily, overflow: 'hidden' }}>
       <Audio src={staticFile('iranvsusa.wav')} volume={1} />
       <Audio src={staticFile('cinematic-bed.wav')} volume={0.14} />
 
@@ -721,22 +813,23 @@ export const IranVsUsaShort: React.FC = () => {
         <Audio src={staticFile('sfx-pop.wav')} volume={0.6} />
       </Sequence>
 
-      {/* BEAT 1 (0.0s - 8.0s): Creator-UI Glassmorphism Hook */}
+      {/* BEAT 1 (0.0s - 8.0s): Creator-UI Glassmorphism Hook + Blurred Glow Orbs + Gradient Text */}
       <Sequence from={0} durationInFrames={Math.round(8.0 * fps)}>
         <CinematicCameraRig zoomFrom={1.0} zoomTo={1.12} shakeIntensity={1.1}>
           <AbsoluteFill
             style={{
-              background: 'radial-gradient(circle at 50% 35%, #231F10 0%, #0D0D0D 75%)',
+              backgroundColor: '#0A0A0C',
               justifyContent: 'center',
               alignItems: 'center',
             }}
           >
+            <AmbientGlowOrbs color1="rgba(66, 133, 244, 0.28)" color2="rgba(255, 214, 10, 0.24)" />
             <div
               style={{
                 padding: '34px 54px',
                 borderRadius: 30,
                 border: '4px solid #FFD60A',
-                backgroundColor: 'rgba(255, 214, 10, 0.12)',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
                 backdropFilter: 'blur(14px)',
                 boxShadow: '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 214, 10, 0.25)',
                 textAlign: 'center',
@@ -746,7 +839,16 @@ export const IranVsUsaShort: React.FC = () => {
               <div style={{ fontSize: 44, fontWeight: 700, color: '#FFD60A', letterSpacing: 2 }}>
                 🇺🇸 USA vs 🇮🇷 IRAN
               </div>
-              <div style={{ fontSize: 68, fontWeight: 700, color: '#FFFFFF', marginTop: 12 }}>
+              <div
+                style={{
+                  fontSize: 68,
+                  fontWeight: 700,
+                  marginTop: 12,
+                  background: 'linear-gradient(180deg, #FFFFFF 0%, #D4D4D8 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
                 “আমরা প্রস্তুত!”
               </div>
             </div>
@@ -792,7 +894,7 @@ export const IranVsUsaShort: React.FC = () => {
         <StickmanStrategyScene />
       </Sequence>
 
-      {/* BEAT 6 (27.2s - 37.0s): Claude 3D Strategic Pillars */}
+      {/* BEAT 6 (27.2s - 37.0s): Claude 3D Strategic Pillars + Hex-Opacity Badges */}
       <Sequence from={Math.round(27.2 * fps)} durationInFrames={Math.round(9.8 * fps)}>
         <VoxThreePillars />
       </Sequence>
@@ -810,7 +912,8 @@ export const IranVsUsaShort: React.FC = () => {
       {/* BEAT 9 (52.1s - 53.5s): Creator-UI CTA Ending */}
       <Sequence from={Math.round(52.1 * fps)} durationInFrames={Math.round(1.4 * fps)}>
         <CinematicCameraRig zoomFrom={1.15} zoomTo={1.0} shakeIntensity={1.2}>
-          <AbsoluteFill style={{ backgroundColor: '#0D0D0D', justifyContent: 'center', alignItems: 'center' }}>
+          <AbsoluteFill style={{ backgroundColor: '#0A0A0C', justifyContent: 'center', alignItems: 'center' }}>
+            <AmbientGlowOrbs color1="rgba(52, 168, 83, 0.3)" color2="rgba(255, 214, 10, 0.28)" />
             <div
               style={{
                 backgroundColor: '#FFD60A',
@@ -833,6 +936,7 @@ export const IranVsUsaShort: React.FC = () => {
       <CinematicAtmosphereOverlay isLightScene={isLightScene} />
       <CreatorHeader badgeText="IRAN vs USA" lightBg={isLightScene} />
       <SrtKaraokeCaptions darkTheme={!isLightScene} />
+      <BottomProgressBar />
     </AbsoluteFill>
   );
 };

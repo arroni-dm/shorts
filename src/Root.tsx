@@ -14,6 +14,7 @@ import { MagneticFieldDocumentary } from "./MagneticFieldDocumentary";
 import { MagneticHybridDocumentary } from "./MagneticHybridDocumentary";
 import { MagneticHybridDocumentary60fps } from "./MagneticHybridDocumentary60fps";
 import { IranVsUsaShort } from './IranVsUsaShort';
+import { GoogleAdsShort } from './GoogleAdsShort';
 
 export const RemotionRoot: React.FC = () => {
   // ১ থেকে ৫০০ পর্যন্ত ৫০০টি ইউনিক দৃশ্য জেনারেট করার অ্যারে
@@ -22,6 +23,14 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       {/* ================= আপনার আগের কম্পোজিশনগুলো ================= */}
+      <Composition
+        id="GoogleAdsShort"
+        component={GoogleAdsShort}
+        durationInFrames={300}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
      <Composition
         id="IranVsUsaShort"
         component={IranVsUsaShort}
