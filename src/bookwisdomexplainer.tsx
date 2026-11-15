@@ -82,11 +82,300 @@ const PHRASE_CHUNKS: WordCue[][] = [
 const POP_TIMES = [0.1, 4.1, 7.05, 11.45, 17.25, 19.85, 23.05, 26.65];
 const WHOOSH_TIMES = [4.05, 7.0, 17.2, 23.0];
 
+// Reusable White-Head Stickman Actor Component
+const StickmanActor: React.FC<{
+  pose: "phone-confused" | "book-wisdom" | "compare" | "scrolling" | "celebrate";
+  frame: number;
+  darkBg?: boolean;
+  scale?: number;
+}> = ({ pose, frame, darkBg = false, scale = 1 }) => {
+  const strokeColor = darkBg ? "#FFFFFF" : "#111111";
+  const headFill = "#FFFFFF";
+  const bob = Math.sin(frame / 7) * 5;
+  const wave = Math.sin(frame / 5) * 12;
+  const blink = frame % 75 < 4;
+
+  return (
+    <svg
+      width={300 * scale}
+      height={320 * scale}
+      viewBox="0 0 300 320"
+      style={{ overflow: "visible" }}
+    >
+      {/* Ground Shadow */}
+      <ellipse
+        cx="150"
+        cy="302"
+        rx="58"
+        ry="10"
+        fill={darkBg ? "rgba(255,255,255,0.14)" : "rgba(0,0,0,0.12)"}
+      />
+
+      {/* Wisdom Aura / Idea Rays for Book Poses */}
+      {(pose === "book-wisdom" || pose === "celebrate") && (
+        <g transform={`translate(150, ${75 + bob})`}>
+          <circle
+            r="68"
+            fill="none"
+            stroke="#FACC15"
+            strokeWidth="4"
+            strokeDasharray="10 10"
+            opacity="0.85"
+          />
+          <line x1="0" y1="-84" x2="0" y2="-68" stroke="#FACC15" strokeWidth="5" strokeLinecap="round" />
+          <line x1="-62" y1="-56" x2="-50" y2="-44" stroke="#FACC15" strokeWidth="5" strokeLinecap="round" />
+          <line x1="62" y1="-56" x2="50" y2="-44" stroke="#FACC15" strokeWidth="5" strokeLinecap="round" />
+        </g>
+      )}
+
+      {/* Legs */}
+      <path
+        d={
+          pose === "celebrate"
+            ? "M 150 205 L 118 265 L 106 296 M 150 205 L 182 265 L 194 296"
+            : "M 150 205 L 128 296 M 150 205 L 172 296"
+        }
+        stroke={strokeColor}
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+
+      {/* Torso */}
+      <line
+        x1="150"
+        y1={122 + bob}
+        x2="150"
+        y2="205"
+        stroke={strokeColor}
+        strokeWidth="8"
+        strokeLinecap="round"
+      />
+
+      {/* Arms + Props per Pose */}
+      {pose === "phone-confused" && (
+        <g>
+          {/* Left arm holding glowing phone */}
+          <path
+            d={`M 150 ${145 + bob} L 112 ${172 + bob} L 96 ${146 + bob}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+          {/* Right arm scratching head */}
+          <path
+            d={`M 150 ${145 + bob} L 194 ${125 + bob} L 186 ${85 + bob}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+          {/* Smartphone Prop */}
+          <rect
+            x="76"
+            y={114 + bob}
+            width="28"
+            height="46"
+            rx="6"
+            fill="#1E293B"
+            stroke="#38BDF8"
+            strokeWidth="3"
+          />
+          <circle cx="90" cy={137 + bob} r="5" fill="#38BDF8" />
+          {/* Question Mark */}
+          <text
+            x="202"
+            y={72 + bob}
+            fill="#DC2626"
+            fontSize="42"
+            fontWeight="bold"
+          >
+            ?
+          </text>
+        </g>
+      )}
+
+      {pose === "book-wisdom" && (
+        <g>
+          {/* Arms holding open golden book */}
+          <path
+            d={`M 150 ${145 + bob} L 106 ${174 + bob} L 126 ${164 + bob}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d={`M 150 ${145 + bob} L 194 ${174 + bob} L 174 ${164 + bob}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Open Book Prop */}
+          <path
+            d={`M 116 ${152 + bob} Q 133 ${146 + bob} 150 ${155 + bob} Q 167 ${146 + bob} 184 ${152 + bob} L 184 ${184 + bob} Q 167 ${176 + bob} 150 ${185 + bob} Q 133 ${176 + bob} 116 ${184 + bob} Z`}
+            fill="#FACC15"
+            stroke="#111111"
+            strokeWidth="3.5"
+          />
+        </g>
+      )}
+
+      {pose === "compare" && (
+        <g>
+          {/* Left hand: tiny phone */}
+          <path
+            d={`M 150 ${145 + bob} L 92 ${142 + bob + wave * 0.4}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <rect
+            x="66"
+            y={116 + bob + wave * 0.4}
+            width="24"
+            height="38"
+            rx="5"
+            fill="#64748B"
+            stroke="#111111"
+            strokeWidth="3"
+          />
+          {/* Right hand: thick green book */}
+          <path
+            d={`M 150 ${145 + bob} L 208 ${136 + bob - wave * 0.4}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <rect
+            x="204"
+            y={104 + bob - wave * 0.4}
+            width="42"
+            height="52"
+            rx="6"
+            fill="#10B981"
+            stroke="#111111"
+            strokeWidth="3.5"
+          />
+        </g>
+      )}
+
+      {pose === "scrolling" && (
+        <g>
+          <path
+            d={`M 150 ${145 + bob} L 114 ${174 + bob} L 146 ${168 + bob}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d={`M 150 ${145 + bob} L 186 ${164 + bob} L 160 ${156 + bob + wave * 0.5}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <rect
+            x="138"
+            y={136 + bob}
+            width="28"
+            height="46"
+            rx="6"
+            fill="#EF4444"
+            stroke="#111111"
+            strokeWidth="3"
+          />
+        </g>
+      )}
+
+      {pose === "celebrate" && (
+        <g>
+          {/* Both arms raised holding book high */}
+          <path
+            d={`M 150 ${145 + bob} L 106 ${96 + bob + wave * 0.4}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d={`M 150 ${145 + bob} L 194 ${96 + bob - wave * 0.4}`}
+            stroke={strokeColor}
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <rect
+            x="184"
+            y={64 + bob - wave * 0.4}
+            width="38"
+            height="46"
+            rx="6"
+            fill="#FACC15"
+            stroke="#111111"
+            strokeWidth="3.5"
+          />
+        </g>
+      )}
+
+      {/* White Round Head with Ink Outline */}
+      <circle
+        cx="150"
+        cy={78 + bob}
+        r="44"
+        fill={headFill}
+        stroke="#111111"
+        strokeWidth="6"
+      />
+
+      {/* Eyes */}
+      {blink ? (
+        <g stroke="#111111" strokeWidth="4" strokeLinecap="round">
+          <line x1="131" y1={74 + bob} x2="143" y2={74 + bob} />
+          <line x1="157" y1={74 + bob} x2="169" y2={74 + bob} />
+        </g>
+      ) : (
+        <g fill="#111111">
+          <circle cx="137" cy={73 + bob} r="5.5" />
+          <circle cx="163" cy={73 + bob} r="5.5" />
+        </g>
+      )}
+
+      {/* Facial Expression Mouth */}
+      {pose === "phone-confused" || pose === "scrolling" ? (
+        <path
+          d={`M 137 ${95 + bob} Q 150 ${88 + bob} 163 ${95 + bob}`}
+          stroke="#111111"
+          strokeWidth="4.5"
+          strokeLinecap="round"
+          fill="none"
+        />
+      ) : (
+        <path
+          d={`M 135 ${90 + bob} Q 150 ${106 + bob} 165 ${90 + bob}`}
+          stroke="#111111"
+          strokeWidth="4.5"
+          strokeLinecap="round"
+          fill="none"
+        />
+      )}
+    </svg>
+  );
+};
+
 export const BookWisdomExplainer: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
   const sec = frame / fps;
-  const floatY = Math.sin(frame / 14) * 6;
+  const floatY = Math.sin(frame / 14) * 5;
   const progressPct = interpolate(frame, [0, durationInFrames], [0, 100], {
     extrapolateRight: "clamp",
   });
@@ -218,33 +507,42 @@ export const BookWisdomExplainer: React.FC = () => {
         </div>
       </div>
 
-      {/* CENTER STAGE */}
+      {/* CENTER STAGE: CREATOR-UI + STICKMAN HYBRID */}
       <div
         style={{
           position: "absolute",
-          top: 230,
+          top: 225,
           left: 68,
           right: 68,
-          height: 1020,
+          height: 1040,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        {/* BEAT 1 (0 - 4.05s): Yellow Hook */}
+        {/* BEAT 1 (0 - 4.05s): Yellow Hook + Confused Stickman with Phone */}
         {sec < 4.05 && (
-          <div style={{ textAlign: "center", transform: `scale(${springAt(0)}) translateY(${floatY}px)` }}>
-            <div style={{ fontSize: 80, fontWeight: 700, color: "#111111", lineHeight: 1.25 }}>
+          <div
+            style={{
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              transform: `scale(${springAt(0)}) translateY(${floatY}px)`,
+            }}
+          >
+            <StickmanActor pose="phone-confused" frame={frame} scale={1.15} />
+            <div style={{ fontSize: 74, fontWeight: 700, color: "#111111", lineHeight: 1.22, marginTop: 20 }}>
               ইন্টারনেট দেয় শুধু
             </div>
             <div
               style={{
-                fontSize: 116,
+                fontSize: 108,
                 fontWeight: 700,
                 color: "#DC2626",
                 lineHeight: 1.15,
-                marginTop: 14,
+                marginTop: 8,
               }}
             >
               তথ্য ও ডেটা
@@ -252,38 +550,19 @@ export const BookWisdomExplainer: React.FC = () => {
           </div>
         )}
 
-        {/* BEAT 2 (4.05 - 7.0s): Dark Contrast Wisdom Reveal */}
+        {/* BEAT 2 (4.05 - 7.0s): Dark Contrast + Stickman Reading Golden Book */}
         {sec >= 4.05 && sec < 7.0 && (
-          <div style={{ textAlign: "center", transform: `scale(${springAt(4.05)}) translateY(${floatY}px)` }}>
-            <div
-              style={{
-                width: 210,
-                height: 210,
-                borderRadius: "50%",
-                border: "6px solid #FACC15",
-                backgroundColor: "#1F2937",
-                margin: "0 auto 38px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 0 60px rgba(250, 204, 21, 0.28)",
-              }}
-            >
-              <svg
-                width="96"
-                height="96"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#FACC15"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-              </svg>
-            </div>
-            <div style={{ fontSize: 86, fontWeight: 700, color: "#FACC15", marginBottom: 26 }}>
+          <div
+            style={{
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              transform: `scale(${springAt(4.05)}) translateY(${floatY}px)`,
+            }}
+          >
+            <StickmanActor pose="book-wisdom" frame={frame} darkBg scale={1.18} />
+            <div style={{ fontSize: 82, fontWeight: 700, color: "#FACC15", marginTop: 18, marginBottom: 22 }}>
               কিন্তু বই দেয় প্রজ্ঞা
             </div>
             <div
@@ -291,9 +570,9 @@ export const BookWisdomExplainer: React.FC = () => {
                 display: "inline-block",
                 backgroundColor: "#FFFFFF",
                 color: "#111111",
-                padding: "16px 44px",
+                padding: "14px 42px",
                 borderRadius: 999,
-                fontSize: 40,
+                fontSize: 38,
                 fontWeight: 700,
               }}
             >
@@ -302,27 +581,27 @@ export const BookWisdomExplainer: React.FC = () => {
           </div>
         )}
 
-        {/* BEAT 3 (7.0 - 17.2s): Dual Timeline Slider Comparison */}
+        {/* BEAT 3 (7.0 - 17.2s): Dual Timeline Slider + Stickman Comparing */}
         {sec >= 7.0 && sec < 17.2 && (
-          <div style={{ width: "100%" }}>
-            <div style={{ textAlign: "center", fontSize: 62, fontWeight: 700, marginBottom: 60 }}>
+          <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ textAlign: "center", fontSize: 58, fontWeight: 700, marginBottom: 34 }}>
               জ্ঞান অর্জনের{" "}
               <span style={{ backgroundColor: "#FACC15", padding: "2px 18px", borderRadius: 12 }}>
                 গভীরতা
               </span>
             </div>
 
-            <div style={{ marginBottom: 64, transform: `scale(${springAt(7.05)})` }}>
+            <div style={{ width: "100%", marginBottom: 42, transform: `scale(${springAt(7.05)})` }}>
               <div
                 style={{
                   display: "inline-block",
                   backgroundColor: "#78716C",
                   color: "#FFFFFF",
-                  padding: "12px 30px",
+                  padding: "10px 28px",
                   borderRadius: 999,
-                  fontSize: 34,
+                  fontSize: 32,
                   fontWeight: 700,
-                  marginBottom: 18,
+                  marginBottom: 14,
                 }}
               >
                 Google সার্চ: ৩ মিনিট
@@ -343,21 +622,15 @@ export const BookWisdomExplainer: React.FC = () => {
             </div>
 
             {sec >= 11.4 && (
-              <div style={{ marginBottom: 60, transform: `scale(${springAt(11.4)})` }}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    marginBottom: 18,
-                  }}
-                >
+              <div style={{ width: "100%", marginBottom: 34, transform: `scale(${springAt(11.4)})` }}>
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 14 }}>
                   <div
                     style={{
                       backgroundColor: "#10B981",
                       color: "#FFFFFF",
-                      padding: "12px 30px",
+                      padding: "10px 28px",
                       borderRadius: 999,
-                      fontSize: 34,
+                      fontSize: 32,
                       fontWeight: 700,
                     }}
                   >
@@ -380,14 +653,18 @@ export const BookWisdomExplainer: React.FC = () => {
               </div>
             )}
 
+            <StickmanActor pose="compare" frame={frame} scale={0.92} />
+
             {sec >= 15.1 && (
               <div
                 style={{
+                  width: "100%",
+                  marginTop: 14,
                   backgroundColor: "#FACC15",
                   color: "#111111",
-                  padding: "24px 38px",
+                  padding: "20px 34px",
                   borderRadius: 999,
-                  fontSize: 46,
+                  fontSize: 42,
                   fontWeight: 700,
                   textAlign: "center",
                   boxShadow: "0 14px 30px rgba(0,0,0,0.08)",
@@ -400,11 +677,16 @@ export const BookWisdomExplainer: React.FC = () => {
           </div>
         )}
 
-        {/* BEAT 4 (17.2 - 23.0s): Stacking Cards & Slanted Red Stamp */}
+        {/* BEAT 4 (17.2 - 23.0s): Stacking Cards + Scrolling Stickman + Red Stamp */}
         {sec >= 17.2 && sec < 23.0 && (
-          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 28, alignItems: "center" }}>
-            <div style={{ fontSize: 58, fontWeight: 700, marginBottom: 16 }}>
-              স্কিমিং যুগে যা হচ্ছে
+          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 22, alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+              <StickmanActor pose="scrolling" frame={frame} scale={0.78} />
+              <div style={{ fontSize: 52, fontWeight: 700, lineHeight: 1.25 }}>
+                স্কিমিং যুগে
+                <br />
+                যা হচ্ছে
+              </div>
             </div>
 
             <div
@@ -413,8 +695,8 @@ export const BookWisdomExplainer: React.FC = () => {
                 backgroundColor: "#FFFFFF",
                 border: "4px solid #3B82F6",
                 borderRadius: 22,
-                padding: "26px 38px",
-                fontSize: 40,
+                padding: "22px 34px",
+                fontSize: 38,
                 fontWeight: 700,
                 display: "flex",
                 alignItems: "center",
@@ -434,8 +716,8 @@ export const BookWisdomExplainer: React.FC = () => {
                   backgroundColor: "#FFFFFF",
                   border: "4px solid #F59E0B",
                   borderRadius: 22,
-                  padding: "26px 38px",
-                  fontSize: 40,
+                  padding: "22px 34px",
+                  fontSize: 38,
                   fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
@@ -456,13 +738,13 @@ export const BookWisdomExplainer: React.FC = () => {
                   backgroundColor: "#F3F4F6",
                   border: "3px dashed #9CA3AF",
                   borderRadius: 22,
-                  padding: "28px 38px",
+                  padding: "24px 34px",
                   position: "relative",
                   transform: `scale(${springAt(20.0)})`,
                 }}
               >
-                <div style={{ fontSize: 30, color: "#6B7280", marginBottom: 6 }}>পরে করবো:</div>
-                <div style={{ fontSize: 40, fontWeight: 700, color: "#2563EB" }}>গভীরে গিয়ে বই পড়া</div>
+                <div style={{ fontSize: 28, color: "#6B7280", marginBottom: 4 }}>পরে করবো:</div>
+                <div style={{ fontSize: 38, fontWeight: 700, color: "#2563EB" }}>গভীরে গিয়ে বই পড়া</div>
 
                 {sec >= 21.3 && (
                   <div
@@ -489,16 +771,19 @@ export const BookWisdomExplainer: React.FC = () => {
           </div>
         )}
 
-        {/* BEAT 5 (23.0 - 30.0s): Flow Badges & Highlighted Solution */}
+        {/* BEAT 5 (23.0 - 30.0s): Celebrating Stickman + Flow Badges */}
         {sec >= 23.0 && (
-          <div style={{ width: "100%", textAlign: "center" }}>
+          <div style={{ width: "100%", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <StickmanActor pose="celebrate" frame={frame} scale={0.95} />
+
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: 22,
-                marginBottom: 48,
+                gap: 20,
+                marginTop: 14,
+                marginBottom: 32,
                 transform: `scale(${springAt(23.05)})`,
               }}
             >
@@ -506,22 +791,22 @@ export const BookWisdomExplainer: React.FC = () => {
                 style={{
                   backgroundColor: "#22C55E",
                   color: "#FFFFFF",
-                  padding: "18px 38px",
-                  borderRadius: 22,
-                  fontSize: 42,
+                  padding: "16px 34px",
+                  borderRadius: 20,
+                  fontSize: 38,
                   fontWeight: 700,
                 }}
               >
                 বই পড়া
               </div>
-              <div style={{ fontSize: 50, fontWeight: 700 }}>→</div>
+              <div style={{ fontSize: 46, fontWeight: 700 }}>→</div>
               <div
                 style={{
                   backgroundColor: "#2563EB",
                   color: "#FFFFFF",
-                  padding: "18px 38px",
-                  borderRadius: 22,
-                  fontSize: 42,
+                  padding: "16px 34px",
+                  borderRadius: 20,
+                  fontSize: 38,
                   fontWeight: 700,
                 }}
               >
@@ -533,11 +818,11 @@ export const BookWisdomExplainer: React.FC = () => {
               style={{
                 display: "inline-block",
                 backgroundColor: "#FDE68A",
-                padding: "16px 40px",
-                borderRadius: 18,
-                fontSize: 56,
+                padding: "14px 36px",
+                borderRadius: 16,
+                fontSize: 50,
                 fontWeight: 700,
-                marginBottom: 36,
+                marginBottom: 28,
                 transform: `scale(${springAt(24.9)})`,
               }}
             >
@@ -548,9 +833,9 @@ export const BookWisdomExplainer: React.FC = () => {
               <div
                 style={{
                   backgroundColor: "#FACC15",
-                  padding: "24px 48px",
+                  padding: "22px 46px",
                   borderRadius: 999,
-                  fontSize: 52,
+                  fontSize: 48,
                   fontWeight: 700,
                   boxShadow: "0 14px 30px rgba(0,0,0,0.08)",
                   transform: `scale(${springAt(26.65)})`,

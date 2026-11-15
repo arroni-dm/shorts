@@ -259,6 +259,12 @@
       "skillPath": "speech-to-text/SKILL.md",
       "computedHash": "4a4d4f26e29b5a6809148ed42d07abcfa6f76b767aded6bfe3ffb9dcd250b561"
     },
+    "stick-figure-shorts": {
+      "source": "deenukhan/stick-figure-shorts",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "64f7c258d1e415d8e3d7d4a60dae3a259539e5072d81c17e0d59cf54b461065f"
+    },
     "story-writer": {
       "source": "weibo-job/guagua-animation-skills",
       "sourceType": "github",
